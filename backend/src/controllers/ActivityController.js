@@ -6,7 +6,14 @@ import db from '../database/connection';
 
 class ActivityController {
   async index(req, res) {
-    return res.json({ ok: true });
+    const { class_id } = req.params;
+    const { student } = req.query;
+
+    const activities = await db('activities').whereRaw(`activities.class = '${class_id}' AND NOT EXISTS (
+      SELECT id FROM student_activities WHERE activity = activities.id AND student = '${student}'
+    )`);
+
+    return res.json(activities);
   }
 
   async store(req, res) {

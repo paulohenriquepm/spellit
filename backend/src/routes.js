@@ -26,8 +26,10 @@ routes.post('/classes', ClassController.store);
 
 routes.post('/students', StudentController.store);
 
+routes.get('/activities/:class_id', ActivityController.index);
 routes.post('/activities', upload.single('file'), ActivityController.store);
 
+routes.get('/student-activities/:student', StudentActivityController.index);
 routes.post('/student-activities', upload.single('file'), StudentActivityController.store);
 
 export default routes;

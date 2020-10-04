@@ -11,8 +11,6 @@ class SessionController {
 
     const user = await db('users').select('*').where('email', '=', email);
 
-    console.log(user);
-
     if (!user[0]) {
       return res.status(401).json({ error: 'Email e/ou senha inválidos' });
     }
@@ -25,12 +23,22 @@ class SessionController {
 
     const { id, name, level } = user[0];
 
+    console.log(id);
+
+    const student = await db('students').select('*').where('user_id', '=', id);
+
+    const { id: student_id, class: class_id } = student[0];
+
     const session = {
       user: {
         id,
         email,
         name,
         level
+      },
+      student: {
+        id: student_id,
+        class_id: class_id,
       },
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn,

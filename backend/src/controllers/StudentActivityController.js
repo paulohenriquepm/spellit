@@ -6,7 +6,13 @@ import db from '../database/connection';
 
 class StudentActivityController {
   async index(req, res) {
-    return res.json({ ok: true });
+    const { student } = req.params;
+
+    const student_activities = await db('student_activities').where({
+      student,
+    }).join('activities', 'student_activities.activity', '=', 'activities.id');
+
+    return res.json(student_activities);
   }
 
   async store(req, res) {
