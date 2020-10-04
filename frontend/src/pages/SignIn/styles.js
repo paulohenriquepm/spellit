@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const Container = styled.div`
   max-width: 1120px;
@@ -26,9 +27,9 @@ export const Container = styled.div`
       width: 340px;
 
       div {
-        border-radius: 4px;
+        border-radius: 8px;
         border: 2px solid #2b2b2b;
-        padding: 8px;
+        padding: 16px;
         width: 100%;
         color: #2b2b2b;
 
@@ -36,19 +37,27 @@ export const Container = styled.div`
         align-items: center;
 
         & + div {
-          margin-top: 8px;
+          margin-top: 16px;
+        }
+
+        &:focus-within {
+          border-color: #226699;
+
+          svg {
+            color: #226699 !important;
+          }
         }
 
         input {
           flex: 1;
           background: transparent;
           border: 0;
-          color: #f4ede8;
+          color: #666360;
+          font-size: 16px;
 
           &::placeholder {
             color: #666360;
           }
-
         }
 
         svg {
@@ -58,16 +67,18 @@ export const Container = styled.div`
 
       button {
         margin-top: 16px;
-        padding: 10px 8px;
+        padding: 22px;
         width: 100%;
-        border-radius: 4px;
+        border-radius: 8px;
+        font-size: 16px;
 
         background-color: #226699;
         color: #fff;
         font-weight: bold;
+        transition: background-color 0.2s;
 
         &:hover {
-
+          background-color: ${darken(0.05, '#226699')}
         }
       }
     }
